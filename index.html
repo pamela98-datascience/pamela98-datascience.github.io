@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pamela Fagla — Actuariat Vie & Non-Vie</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #0f2744;
+    --blue:   #1a4480;
+    --sky:    #2d7dd2;
+    --gold:   #c9a84c;
+    --cream:  #f8f4ee;
+    --white:  #ffffff;
+    --muted:  #6b7a8d;
+    --border: #dde3ec;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────── */
+  .hero {
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,125,210,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    line-height: 1.05;
+    max-width: 700px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    max-width: 520px;
+    margin-top: 24px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.35s forwards;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+
+  .hero-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .btn-primary:hover { background: #dbb85a; transform: translateY(-2px); }
+
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--white);
+  }
+  .btn-outline:hover {
+    border-color: var(--white);
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 72px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.65s forwards;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SECTIONS ─────────────────────────────────────────── */
+  section { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 4px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 48px;
+  }
+
+  /* ── PROJETS ──────────────────────────────────────────── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 28px;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(15,39,68,0.12);
+  }
+
+  .card-accent {
+    height: 4px;
+    background: linear-gradient(90deg, var(--sky), var(--gold));
+  }
+
+  .card-accent.vie    { background: linear-gradient(90deg, #6d28d9, #a78bfa); }
+  .card-accent.nonvie { background: linear-gradient(90deg, #0369a1, #38bdf8); }
+  .card-accent.s2     { background: linear-gradient(90deg, #065f46, #34d399); }
+
+  .card-body { padding: 28px 28px 20px; }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .tag-vie    { background: #ede9fe; color: #5b21b6; }
+  .tag-nonvie { background: #e0f2fe; color: #0369a1; }
+  .tag-s2     { background: #d1fae5; color: #065f46; }
+
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  .card-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .pill {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--cream);
+    color: var(--navy);
+    border: 1px solid var(--border);
+  }
+
+  .card-footer {
+    padding: 16px 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sky);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s;
+  }
+  .card-link:hover { gap: 10px; }
+  .card-link::after { content: '→'; }
+
+  .card-lang {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── COMPÉTENCES ──────────────────────────────────────── */
+  .skills-section { background: var(--navy); color: var(--white); }
+  .skills-section .section-title { color: var(--white); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+
+  .skill-group { }
+
+  .skill-group-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .skill-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ── CONTACT ──────────────────────────────────────────── */
+  .contact-section {
+    text-align: center;
+    padding: 100px 60px;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-section .section-title { margin-bottom: 16px; }
+
+  .contact-sub {
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid var(--border);
+    color: var(--navy);
+    background: var(--cream);
+  }
+  .contact-link:hover {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ───────────────────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 32px;
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── ANIMATIONS ───────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ───────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .hero, section { padding: 60px 24px; }
+    .hero-stats { gap: 32px; flex-wrap: wrap; }
+    .contact-section { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ───────────────────────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-label">Actuariat Vie &amp; Non-Vie · M1 ISUP Sorbonne</div>
+  <h1>Pamela<br><em>Fagla</em></h1>
+  <p class="hero-sub">
+    Étudiante actuaire, ayant développé des compétences en modélisation vie, 
+    provisionnement non-vie, Solvabilité 2 et automatisation Python · SAS.
+  </p>
+  <div class="hero-links">
+    <a href="https://www.linkedin.com/in/pamela-fagla" target="_blank" class="btn-primary">
+      LinkedIn
+    </a>
+    <a href="https://github.com/pamela98-datascience" target="_blank" class="btn-outline">
+      GitHub
+    </a>
+    <a href="mailto:pamahoussifagla@gmail.com" class="btn-outline">
+      Contact
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">5</div>
+      <div class="stat-label">Modules actuariels</div>
+    </div>
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">Apps déployées</div>
+    </div>
+    <div>
+      <div class="stat-num">2</div>
+      <div class="stat-label">Langages actuariels</div>
+    </div>
+    <div>
+      <div class="stat-num">M1</div>
+      <div class="stat-label">ISUP · Sorbonne</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROJETS ─────────────────────────────────────────────────────────────── -->
+<section>
+  <div class="section-tag">Projets</div>
+  <h2 class="section-title">Modélisation actuarielle<br>en Python &amp; SAS</h2>
+
+  <div class="projects-grid">
+
+    <!-- Projet Vie -->
+    <div class="project-card reveal">
+      <div class="card-accent vie"></div>
+      <div class="card-body">
+        <span class="card-tag tag-vie">Actuariat Vie</span>
+        <h3 class="card-title">Modélisation Vie — Inventaire &amp; Backtesting Retraite Collective</h3>
+        <p class="card-desc">
+          Cycle complet de l'actuariat retraite collective : tables TH/TF 00-02, 
+          tarification rente viagère äx, provisions mathématiques par récurrence de Thiele, 
+          inventaire trimestriel (1 000 contrats), backtesting N/N+1 avec décomposition 
+          effet taux / mortalité / portefeuille. Best Estimate S2, SCR taux ±100bps.
+          Scripts SAS (DATA step, macros, ODS PDF).
+        </p>
+        <div class="card-pills">
+          <span class="pill">Tables TH/TF</span>
+          <span class="pill">PM prospective</span>
+          <span class="pill">Thiele</span>
+          <span class="pill">Best Estimate S2</span>
+          <span class="pill">SCR taux</span>
+          <span class="pill">Backtesting N/N+1</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://projet-vie-actuariel.streamlit.app/" target="_blank" class="card-link">
+          Voir l'application
+        </a>
+        <span class="card-lang">Python · SAS · Streamlit</span>
+      </div>
+    </div>
+
+    <!-- GLM Auto -->
+    <div class="project-card reveal" style="transition-delay:0.1s">
+      <div class="card-accent nonvie"></div>
+      <div class="card-body">
+        <span class="card-tag tag-nonvie">Actuariat Non-Vie</span>
+        <h3 class="card-title">Tarification Auto GLM — Fréquence/Sévérité &amp; Automatisation</h3>
+        <p class="card-desc">
+          Modèles GLM fréquence/sévérité sur portefeuille auto. Automatisation 
+          des sensibilités S/P, chocs tarifaires, analyse de rentabilité prospective. 
+          Application interactive déployée permettant de tester les impacts tarifaires 
+          en temps réel.
+        </p>
+        <div class="card-pills">
+          <span class="pill">GLM Poisson</span>
+          <span class="pill">GLM Gamma</span>
+          <span class="pill">Ratio S/P</span>
+          <span class="pill">Chocs tarifaires</span>
+          <span class="pill">Sensibilités</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://auto-glm-prime-pure.streamlit.app/" target="_blank" class="card-link">
+          Voir l'application
+        </a>
+        <span class="card-lang">Python · Streamlit</span>
+      </div>
+    </div>
+
+    <!-- Chain Ladder + S2 -->
+    <div class="project-card reveal" style="transition-delay:0.2s">
+      <div class="card-accent s2"></div>
+      <div class="card-body">
+        <span class="card-tag tag-s2">Provisionnement · S2</span>
+        <h3 class="card-title">Chain Ladder &amp; Modélisation Solvabilité 2</h3>
+        <p class="card-desc">
+          Provisions non-vie : Chain Ladder avec tail factor prudent sur triangle auto, 
+          backtesting N/N+1, analyse sur/sous-provisionnements. 
+          Modélisation S2 : calibrage courbe des taux Nelson-Siegel, 
+          Best Estimate IARD, SCR souscription via chocs ±100bps (duration modifiée), 
+          analyse SFCR de deux assureurs.
+        </p>
+        <div class="card-pills">
+          <span class="pill">Chain Ladder</span>
+          <span class="pill">Tail factor</span>
+          <span class="pill">Nelson-Siegel</span>
+          <span class="pill">SCR souscription</span>
+          <span class="pill">SFCR</span>
+          <span class="pill">Duration</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="https://github.com/pamela98-datascience/Analyse_Provisions_Sinistres_Non_Vie" target="_blank" class="card-link">
+          Voir sur GitHub
+        </a>
+        <span class="card-lang">Python · Excel</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── COMPÉTENCES ─────────────────────────────────────────────────────────── -->
+<div class="skills-section">
+  <section style="max-width:1200px; margin:0 auto;">
+    <div class="section-tag" style="color:var(--gold);">Compétences</div>
+    <h2 class="section-title">Outils &amp; domaines</h2>
+
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Actuariat Vie</div>
+        <div class="skill-item"><span class="skill-dot"></span>Tables TH/TF 00-02</div>
+        <div class="skill-item"><span class="skill-dot"></span>Provisions mathématiques (PM)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Tarification rente (äx)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Récurrence de Thiele</div>
+        <div class="skill-item"><span class="skill-dot"></span>Best Estimate S2 / IFRS17</div>
+        <div class="skill-item"><span class="skill-dot"></span>Inventaire trimestriel</div>
+        <div class="skill-item"><span class="skill-dot"></span>PB · Duration ALM</div>
+      </div>
+
+      <div class="skill-group reveal" style="transition-delay:0.1s">
+        <div class="skill-group-title">Actuariat Non-Vie</div>
+        <div class="skill-item"><span class="skill-dot"></span>Chain Ladder (backtesting)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Tarification GLM</div>
+        <div class="skill-item"><span class="skill-dot"></span>SCR souscription S2</div>
+        <div class="skill-item"><span class="skill-dot"></span>Analyse sinistralité</div>
+        <div class="skill-item"><span class="skill-dot"></span>Ratio S/P · rentabilité</div>
+      </div>
+
+      <div class="skill-group reveal" style="transition-delay:0.2s">
+        <div class="skill-group-title">Outils</div>
+        <div class="skill-item"><span class="skill-dot"></span>Python (pandas, numpy)</div>
+        <div class="skill-item"><span class="skill-dot"></span>SAS (DATA step, macros)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Excel / VBA</div>
+        <div class="skill-item"><span class="skill-dot"></span>Streamlit (apps déployées)</div>
+        <div class="skill-item"><span class="skill-dot"></span>R · SQL · Power BI</div>
+      </div>
+
+      <div class="skill-group reveal" style="transition-delay:0.3s">
+        <div class="skill-group-title">Formation</div>
+        <div class="skill-item"><span class="skill-dot"></span>M1 Actuariat — ISUP Sorbonne</div>
+        <div class="skill-item"><span class="skill-dot"></span>L3 Statistique — UBS</div>
+        <div class="skill-item"><span class="skill-dot"></span>Île-de-France</div>
+        <div class="skill-item"><span class="skill-dot"></span>Alternance sept. 2026</div>
+        <div class="skill-item"><span class="skill-dot"></span>Français · Anglais B1/B2</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── CONTACT ─────────────────────────────────────────────────────────────── -->
+<div class="contact-section">
+  <div class="section-tag">Contact</div>
+  <h2 class="section-title">Recherche une alternance<br>à partir de septembre 2026</h2>
+  <p class="contact-sub">Actuariat vie · Non-vie · Retraite collective · Paris / Île-de-France</p>
+  <div class="contact-links">
+    <a href="mailto:pamahoussifagla@gmail.com" class="contact-link">
+      ✉ pamahoussifagla@gmail.com
+    </a>
+    <a href="https://www.linkedin.com/in/pamela-fagla" target="_blank" class="contact-link">
+      LinkedIn
+    </a>
+    <a href="https://github.com/pamela98-datascience" target="_blank" class="contact-link">
+      GitHub
+    </a>
+    <a href="https://vie-actuariel.streamlit.app" target="_blank" class="contact-link">
+      App Vie
+    </a>
+    <a href="https://autoglm-prime-pure.streamlit.app/" target="_blank" class="contact-link">
+      App GLM
+    </a>
+  </div>
+</div>
+
+<footer>
+  © 2026 Pamela Fagla · M1 Actuariat ISUP Sorbonne · Tous droits réservés
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
